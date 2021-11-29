@@ -1,6 +1,7 @@
 import express from "express";
-import { teacher } from "../controllers/teacher";
+import { getStudents, teacherDashboard } from "../controllers/teacher";
 const router = express.Router();
 
-router.route("/teacher").get(teacher);
+router.route("/teacherDashboard").get(teacherDashboard);
+router.route("/teacherDashboard/students").get(getStudents);
 export default router;
