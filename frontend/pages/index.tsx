@@ -15,9 +15,9 @@ const IndexPage = () => {
             {isStudent ? <StudentForm /> : <TeacherForm />}
             <p
                 className="text-indigo-600 hover:underline text-lg"
-                onClick={() => setIsStudent(true)}
+                onClick={() => setIsStudent(!isStudent)}
             >
-                I m a Student
+                i m a {isStudent ? "Teacher" : "Student"}
             </p>
         </div>
     );

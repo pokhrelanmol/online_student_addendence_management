@@ -1,13 +1,39 @@
 import { useState } from "react";
-import handler from "../../pages/api/users";
+import axios from "axios";
 
 const StudentForm = () => {
     const [registration, SetRegistration] = useState(false);
     const [email, setEmail] = useState("");
     const [rollNo, setRollNo] = useState("");
+
     const [name, setName] = useState("");
+    const handleRegister = async () => {
+        try {
+            const res = await axios.post(
+                "http://localhost:3001/registerStudent",
+                {
+                    name,
+                    email,
+                    rollNo,
+                }
+            );
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+    const handleLogin = async () => {
+        try {
+            const res = await axios.post("http://localhost:3001/loginStudent", {
+                email,
+                rollNo,
+            });
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
     return (
         <div>
+            <h1>Student Form</h1>
             {registration ? (
                 //   for regitration
                 <div>
