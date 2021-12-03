@@ -1,7 +1,7 @@
 import express from "express";
-import { getStudents, teacherDashboard } from "../controllers/teacher";
+import { getStudents, addStudent, handlePresent } from "../controllers/teacher";
 const router = express.Router();
 
-router.route("/teacherDashboard").get(teacherDashboard);
-router.route("/teacherDashboard/students").get(getStudents);
+router.route("/students").get(getStudents).post(addStudent);
+router.route("/students/:id").patch(handlePresent);
 export default router;
