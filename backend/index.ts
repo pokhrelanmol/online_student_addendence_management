@@ -6,8 +6,8 @@ import notFoundMiddleware from "./middlewares/not-found";
 import errorMiddleware from "./middlewares/error-handler";
 import connectDB from "./connectDB";
 
-import Student from "./models/Student";
 import cron from "node-cron";
+import registration from "./routes/registration";
 
 dotenv.config();
 const app = express();
@@ -23,6 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 
 // routes
 app.use("/", teacher);
+app.use("/", registration);
 // middleware
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
