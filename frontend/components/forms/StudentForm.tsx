@@ -32,6 +32,7 @@ const StudentForm = () => {
                 roll_no,
                 password,
             });
+            console.log(res);
         } catch (error) {
             console.log(error.message);
         }

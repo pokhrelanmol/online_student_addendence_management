@@ -26,6 +26,8 @@ const TeacherForm = () => {
                 email,
                 password,
             });
+
+            console.log(res);
         } catch (error) {
             console.log(error.message);
         }

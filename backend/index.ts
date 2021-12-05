@@ -2,13 +2,15 @@ import express, { Response, Request } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 require("express-async-errors");
-import teacher from "./routes/teacher";
 import notFoundMiddleware from "./middlewares/not-found";
 import errorMiddleware from "./middlewares/error-handler";
 import connectDB from "./connectDB";
 
 import cron from "node-cron";
+// CONTROLLERS
+import teacher from "./routes/teacher";
 import registration from "./routes/registration";
+import login from "./routes/login";
 
 dotenv.config();
 const app = express();
@@ -25,6 +27,7 @@ app.get("/", (req: Request, res: Response) => {
 // routes
 app.use("/", teacher);
 app.use("/", registration);
+app.use("/", login);
 // middleware
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
