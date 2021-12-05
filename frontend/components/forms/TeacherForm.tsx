@@ -4,11 +4,18 @@ const TeacherForm = () => {
     const [registration, setRegistration] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const handleRegister = async () => {
         try {
             const res = await axios.post(
-                "http://localhost:3001/registerTeacher"
+                "http://localhost:3001/registerTeacher",
+                {
+                    name,
+                    email,
+                    password,
+                }
             );
+            console.log(res);
         } catch (error) {
             console.log(error.message);
         }
@@ -16,8 +23,8 @@ const TeacherForm = () => {
     const handleLogin = async () => {
         try {
             const res = await axios.post("http://localhost:3001/loginTeacher", {
-                name,
                 email,
+                password,
             });
         } catch (error) {
             console.log(error.message);
@@ -40,6 +47,12 @@ const TeacherForm = () => {
                         placeholder="Email"
                         required
                     />
+                    <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                        placeholder="Password"
+                        required
+                    />
                     <button onClick={handleRegister}>Register</button>
                     <p
                         onClick={() => setRegistration(false)}
@@ -51,15 +64,15 @@ const TeacherForm = () => {
             ) : (
                 <div>
                     <input
-                        onChange={(e) => setName(e.target.value)}
-                        type="text"
-                        placeholder="Name"
-                        required
-                    />
-                    <input
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         placeholder="Email"
+                        required
+                    />
+                    <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                        placeholder="Password"
                         required
                     />
 

@@ -1,5 +1,6 @@
 import express, { Response, Request } from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 require("express-async-errors");
 import teacher from "./routes/teacher";
 import notFoundMiddleware from "./middlewares/not-found";
@@ -11,7 +12,7 @@ import registration from "./routes/registration";
 
 dotenv.config();
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 4000;

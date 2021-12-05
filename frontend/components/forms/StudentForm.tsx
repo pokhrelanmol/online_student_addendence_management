@@ -4,7 +4,8 @@ import axios from "axios";
 const StudentForm = () => {
     const [registration, SetRegistration] = useState(false);
     const [email, setEmail] = useState("");
-    const [rollNo, setRollNo] = useState("");
+    const [roll_no, setRoll_no] = useState("");
+    const [password, setPassword] = useState("");
 
     const [name, setName] = useState("");
     const handleRegister = async () => {
@@ -14,9 +15,12 @@ const StudentForm = () => {
                 {
                     name,
                     email,
-                    rollNo,
+                    roll_no,
+                    password,
                 }
             );
+
+            console.log(res);
         } catch (error) {
             console.log(error.message);
         }
@@ -25,7 +29,8 @@ const StudentForm = () => {
         try {
             const res = await axios.post("http://localhost:3001/loginStudent", {
                 email,
-                rollNo,
+                roll_no,
+                password,
             });
         } catch (error) {
             console.log(error.message);
@@ -50,12 +55,19 @@ const StudentForm = () => {
                         required
                     />
                     <input
-                        onChange={(e) => setRollNo(e.target.value)}
+                        onChange={(e) => setRoll_no(e.target.value)}
                         type="text"
                         placeholder="Roll No"
                         required
                     />
+                    <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                        placeholder="Password"
+                        required
+                    />
                     <button onClick={handleRegister}>Register</button>
+
                     <p
                         onClick={() => SetRegistration(false)}
                         className="text-blue-700 hover:underline"
@@ -73,9 +85,15 @@ const StudentForm = () => {
                         required
                     />
                     <input
-                        onChange={(e) => setRollNo(e.target.value)}
+                        onChange={(e) => setRoll_no(e.target.value)}
                         type="text"
                         placeholder="Roll No"
+                        required
+                    />
+                    <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                        placeholder="Password"
                         required
                     />
 
