@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import router from "next/router";
 const TeacherForm = () => {
     const [registration, setRegistration] = useState(false);
     const [name, setName] = useState("");
@@ -15,9 +16,17 @@ const TeacherForm = () => {
                     password,
                 }
             );
-            console.log(res);
+            if (res.status === 201) {
+                alert(res.data.message);
+                router.push("/students");
+            }
         } catch (error) {
-            console.log(error.message);
+            const errRes = error.response;
+            if (errRes.status === 400) {
+                alert(errRes.data.error);
+            } else if (errRes.status === 500) {
+                alert(errRes.data.error);
+            }
         }
     };
     const handleLogin = async () => {
@@ -26,10 +35,19 @@ const TeacherForm = () => {
                 email,
                 password,
             });
-
             console.log(res);
+            if (res.status === 200) {
+                alert(res.data.message);
+
+                router.push("/students");
+            }
         } catch (error) {
-            console.log(error.message);
+            const errRes = error.response;
+            if (errRes.status === 400) {
+                alert(errRes.data.error);
+            } else if (errRes.status === 500) {
+                alert(errRes.data.error);
+            }
         }
     };
     return (

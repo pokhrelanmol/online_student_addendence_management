@@ -12,7 +12,7 @@ export const registerTeacher = async (req: Request, res: Response) => {
         password,
     });
     console.log(createdTeacher);
-    res.json(createdTeacher).status(201);
+    res.status(201).json({ message: "user registered successfully" });
 };
 export const regsiterStudent = async (req: Request, res: Response) => {
     // handle the /registerStudent router
@@ -26,5 +26,5 @@ export const regsiterStudent = async (req: Request, res: Response) => {
         password,
     });
     console.log(createdStudent);
-    res.json(createdStudent).status(201);
+    res.status(201).json({ message: "user registered successfully" });
 };

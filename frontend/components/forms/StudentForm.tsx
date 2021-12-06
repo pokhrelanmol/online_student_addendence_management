@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import router from "next/router";
 
 const StudentForm = () => {
     const [registration, SetRegistration] = useState(false);
@@ -19,10 +20,17 @@ const StudentForm = () => {
                     password,
                 }
             );
-
-            console.log(res);
+            if (res.status === 201) {
+                alert(res.data.message);
+                router.push("/attendence");
+            }
         } catch (error) {
-            console.log(error.message);
+            const errRes = error.response;
+            if (errRes.status === 400) {
+                alert(errRes.data.error);
+            } else if (errRes.status === 500) {
+                alert(errRes.data.error);
+            }
         }
     };
     const handleLogin = async () => {
@@ -32,9 +40,18 @@ const StudentForm = () => {
                 roll_no,
                 password,
             });
-            console.log(res);
+            if (res.status === 200) {
+                alert(res.data.mkessage);
+
+                router.push("/attendence");
+            }
         } catch (error) {
-            console.log(error.message);
+            const errRes = error.response;
+            if (errRes.status === 400) {
+                alert(errRes.data.error);
+            } else if (errRes.status === 500) {
+                alert(errRes.data.error);
+            }
         }
     };
     return (

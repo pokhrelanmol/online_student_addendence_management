@@ -13,11 +13,11 @@ const errorHandlerMiddleware = async (
 ) => {
     if (err.code === 11000) {
         return res
-            .status(500)
-            .json({ msg: "email you entered is already in use" });
+            .status(400)
+            .json({ error: "email you entered is already in use" });
     }
     return res
         .status(500)
-        .json({ msg: "Something went wrong, please try again" });
+        .json({ error: "Something went wrong, please try again" });
 };
 export default errorHandlerMiddleware;
