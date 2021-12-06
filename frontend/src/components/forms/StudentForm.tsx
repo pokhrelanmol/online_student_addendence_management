@@ -1,24 +1,28 @@
 import { useState } from "react";
 import axios from "axios";
 import router from "next/router";
-const TeacherForm = () => {
-    const [registration, setRegistration] = useState(false);
-    const [name, setName] = useState("");
+
+const StudentForm = () => {
+    const [registration, SetRegistration] = useState(false);
     const [email, setEmail] = useState("");
+    const [roll_no, setRoll_no] = useState("");
     const [password, setPassword] = useState("");
+
+    const [name, setName] = useState("");
     const handleRegister = async () => {
         try {
             const res = await axios.post(
-                "http://localhost:3001/registerTeacher",
+                "http://localhost:3001/registerStudent",
                 {
                     name,
                     email,
+                    roll_no,
                     password,
                 }
             );
             if (res.status === 201) {
                 alert(res.data.message);
-                router.push("/students");
+                router.push("/");
             }
         } catch (error) {
             const errRes = error.response;
@@ -31,15 +35,15 @@ const TeacherForm = () => {
     };
     const handleLogin = async () => {
         try {
-            const res = await axios.post("http://localhost:3001/loginTeacher", {
+            const res = await axios.post("http://localhost:3001/loginStudent", {
                 email,
+                roll_no,
                 password,
             });
-            console.log(res);
             if (res.status === 200) {
-                alert(res.data.message);
+                alert(res.data.mkessage);
 
-                router.push("/students");
+                router.push("/");
             }
         } catch (error) {
             const errRes = error.response;
@@ -52,8 +56,9 @@ const TeacherForm = () => {
     };
     return (
         <div>
-            <h1>Teacher Form</h1>
+            <h1>Student Form</h1>
             {registration ? (
+                //   for regitration
                 <div>
                     <input
                         onChange={(e) => setName(e.target.value)}
@@ -68,25 +73,39 @@ const TeacherForm = () => {
                         required
                     />
                     <input
+                        onChange={(e) => setRoll_no(e.target.value)}
+                        type="text"
+                        placeholder="Roll No"
+                        required
+                    />
+                    <input
                         onChange={(e) => setPassword(e.target.value)}
                         type="password"
                         placeholder="Password"
                         required
                     />
                     <button onClick={handleRegister}>Register</button>
+
                     <p
-                        onClick={() => setRegistration(false)}
+                        onClick={() => SetRegistration(false)}
                         className="text-blue-700 hover:underline"
                     >
                         login
                     </p>
                 </div>
             ) : (
+                // for login
                 <div>
                     <input
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         placeholder="Email"
+                        required
+                    />
+                    <input
+                        onChange={(e) => setRoll_no(e.target.value)}
+                        type="text"
+                        placeholder="Roll No"
                         required
                     />
                     <input
@@ -98,7 +117,7 @@ const TeacherForm = () => {
 
                     <button onClick={handleLogin}>Login</button>
                     <p
-                        onClick={() => setRegistration(true)}
+                        onClick={() => SetRegistration(true)}
                         className="text-blue-700 hover:underline"
                     >
                         register
@@ -109,4 +128,4 @@ const TeacherForm = () => {
     );
 };
 
-export default TeacherForm;
+export default StudentForm;
