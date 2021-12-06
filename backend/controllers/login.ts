@@ -7,13 +7,16 @@ export const loginTeacher = async (req: Request, res: Response) => {
     const loggedTeacher = await RegisterTeacher.findOne({
         email,
     }).lean();
+    if (!loggedTeacher) {
+        res.status(400).json({ error: "You are not registered" });
+    }
     const checkPasword = await bcrypt.compare(password, loggedTeacher.password);
     if (checkPasword) {
         console.log(loggedTeacher);
         res.status(200).json({ message: "login successfull" });
     } else {
         console.log("error");
-        res.status(400).json({ message: "invalid username or password" });
+        res.status(400).json({ error: "invalid username or password" });
     }
 };
 // * STUDENT LOGIN
@@ -28,6 +31,6 @@ export const loginStudent = async (req: Request, res: Response) => {
         console.log(loggedStudent);
         res.status(200).json({ message: "login successfull" });
     } else {
-        res.status(400).json({ message: "invalid username or password" });
+        res.status(400).json({ error: "invalid username or password" });
     }
 };

@@ -20,7 +20,8 @@ export const getStudents = async (request: Request, response: Response) => {
 
 export const addStudent = async (req: Request, res: Response) => {
     const student = await Student.create(req.body);
-    res.json({ message: "student added" });
+
+    res.status(201).json({ message: "student added" });
 };
 
 export const handlePresent = async (req: Request, res: Response) => {
