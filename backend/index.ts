@@ -8,7 +8,7 @@ import connectDB from "./connectDB";
 
 import cron from "node-cron";
 // CONTROLLERS
-import teacher from "./routes/teacher";
+import teacher from "./routes/teacherRole";
 import registration from "./routes/registration";
 import login from "./routes/login";
 

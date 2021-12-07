@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import router from "next/router";
 
+import { useUser } from "../../context/UserContext";
 const StudentForm = () => {
     const [registration, SetRegistration] = useState(false);
     const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ const StudentForm = () => {
     const [password, setPassword] = useState("");
 
     const [name, setName] = useState("");
+    const { setUser } = useUser();
     const handleRegister = async () => {
         try {
             const res = await axios.post(
@@ -22,6 +24,7 @@ const StudentForm = () => {
             );
             if (res.status === 201) {
                 alert(res.data.message);
+                setUser({ name: email, role: "student" });
                 router.push("/");
             }
         } catch (error) {
@@ -41,8 +44,9 @@ const StudentForm = () => {
                 password,
             });
             if (res.status === 200) {
-                alert(res.data.mkessage);
+                alert(res.data.message);
 
+                setUser({ name: email, role: "student" });
                 router.push("/");
             }
         } catch (error) {

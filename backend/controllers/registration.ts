@@ -12,7 +12,6 @@ export const registerTeacher = async (req: Request, res: Response) => {
         email,
         password,
     });
-    console.log(createdTeacher);
     res.status(201).json({ message: "user registered successfully" });
 };
 

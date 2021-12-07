@@ -19,7 +19,7 @@ const TeacherForm = () => {
                 }
             );
             if (res.status === 201) {
-                setUser(name);
+                setUser({ name: email, role: "teacher" });
                 alert(res.data.message);
                 router.push("/");
             }
@@ -40,7 +40,7 @@ const TeacherForm = () => {
             });
             console.log(res);
             if (res.status === 200) {
-                setUser(email);
+                setUser({ name: email, role: "teacher" });
                 alert(res.data.message);
 
                 router.push("/");

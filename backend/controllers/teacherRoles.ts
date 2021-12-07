@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 
 import Student from "../models/Student";
+import { authTeacher } from "../middlewares/authorization";
 const app = express();
 
 interface QueryString {
@@ -22,14 +23,4 @@ export const addStudent = async (req: Request, res: Response) => {
     const student = await Student.create(req.body);
 
     res.status(201).json({ message: "student added" });
-};
-
-export const handlePresent = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const student = await Student.findOneAndUpdate(
-        { _id: id },
-        { takeAttendence: true },
-        { new: true, runValidators: true }
-    );
-    res.json({ message: "attendence updated" });
 };

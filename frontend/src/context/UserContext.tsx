@@ -1,8 +1,13 @@
 import React, { ReactNode } from "react";
 
 interface UserProps {
-    user: string;
-    setUser: React.Dispatch<React.SetStateAction<string>>;
+    user: {
+        name: string;
+        role: string;
+    };
+    setUser: React.Dispatch<
+        React.SetStateAction<{ name: string; role: string }>
+    >;
 }
 
 type ProviderProps = {
@@ -10,12 +15,15 @@ type ProviderProps = {
 };
 
 export const UserContext = React.createContext<UserProps>({
-    user: "",
+    user: { name: "", role: "" },
     setUser: () => {},
 });
 
 export const UserProvider = ({ children }: ProviderProps) => {
-    const [user, setUser] = React.useState<string>("");
+    const [user, setUser] = React.useState({
+        name: "",
+        role: "",
+    });
     return (
         <UserContext.Provider
             value={{
