@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "../src/context/UserContext";
 import CreateStudent from "../src/components/teacher/CreateStudent";
+import GetStudents from "../src/components/teacher/GetStudents";
 const IndexPage = () => {
     const router = useRouter();
     const { user } = useUser();
@@ -20,7 +21,10 @@ const IndexPage = () => {
             {user.role === "student" ? (
                 <h1>student page</h1>
             ) : (
-                <CreateStudent />
+                <>
+                    <CreateStudent />
+                    <GetStudents />
+                </>
             )}
             <h1>logged in as {user.name}</h1>
         </div>

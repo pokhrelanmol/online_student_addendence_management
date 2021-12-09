@@ -7,13 +7,14 @@ config();
 (async () => {
     try {
         await connectDB();
-        Student.deleteMany();
-        const studentsList = await Student.create(dummyStudents);
-        if (studentsList) {
-            console.log("students created");
-        } else {
-            console.log("not created");
-        }
+        await Student.deleteMany();
+        console.log("deleted");
+        // const studentsList = await Student.create(dummyStudents);
+        // if (studentsList) {
+        //     console.log("students created");
+        // } else {
+        //     console.log("not created");
+        // }
     } catch (error) {
         console.log(error);
     }

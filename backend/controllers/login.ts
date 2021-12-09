@@ -13,7 +13,6 @@ export const loginTeacher = async (req: Request, res: Response) => {
     }
     const checkPasword = await bcrypt.compare(password, loggedTeacher.password);
     if (checkPasword) {
-        console.log(loggedTeacher);
         res.status(200).json({ message: "login successfull" });
     } else {
         console.log("error");
