@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import RegisterTeacher from "../models/RegisterTeacher";
 import bcrypt from "bcryptjs";
+import RegisterStudent from "../models/RegisterStudent";
 // *TEACHER LOGIN
 export const loginTeacher = async (req: Request, res: Response) => {
     const { email, password } = req.body;
@@ -22,10 +23,13 @@ export const loginTeacher = async (req: Request, res: Response) => {
 // * STUDENT LOGIN
 export const loginStudent = async (req: Request, res: Response) => {
     const { email, roll_no, password } = req.body;
-    const loggedStudent = await RegisterTeacher.findOne({
+
+    console.log(password);
+    const loggedStudent = await RegisterStudent.findOne({
         email,
         roll_no,
     });
+    console.log(loggedStudent);
     const checkPasword = await bcrypt.compare(password, loggedStudent.password);
     if (checkPasword) {
         console.log(loggedStudent);

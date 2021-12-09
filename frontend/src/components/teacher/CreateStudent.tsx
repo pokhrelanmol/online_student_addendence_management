@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-
+import { useUser } from "../../context/UserContext";
 type StudentState = {
     name: string;
     email: string;
@@ -8,7 +8,8 @@ type StudentState = {
     class: string;
     mobile: number;
 };
-const students = () => {
+const CreateStudent = () => {
+    const { user } = useUser();
     const [student, setStudent] = useState<StudentState>({
         name: "",
         email: "",
@@ -28,11 +29,18 @@ const students = () => {
     const handleCreateStudent = async () => {
         try {
             const res = await axios.post(
-                "http://localhost:3001/students",
+                `http://localhost:3001/createStudent/${user.name}`,
                 student
             );
             if (res.status === 201) {
                 alert(res.data.message);
+                setStudent({
+                    name: "",
+                    email: "",
+                    roll_no: "",
+                    class: "",
+                    mobile: "" as unknown as number,
+                });
             }
         } catch (error) {
             const errRes = error.response;
@@ -42,13 +50,6 @@ const students = () => {
                 alert(errRes.data.error);
             }
         }
-        setStudent({
-            name: "",
-            email: "",
-            roll_no: "",
-            class: "",
-            mobile: "" as unknown as number,
-        });
     };
     return (
         <div>
@@ -98,4 +99,4 @@ const students = () => {
     );
 };
 
-export default students;
+export default CreateStudent;

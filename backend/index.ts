@@ -8,7 +8,7 @@ import connectDB from "./connectDB";
 
 import cron from "node-cron";
 // CONTROLLERS
-import teacher from "./routes/teacherRole";
+import teacherRole from "./routes/teacherRole";
 import registration from "./routes/registration";
 import login from "./routes/login";
 
@@ -25,7 +25,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // routes
-app.use("/", teacher);
+app.use("/", teacherRole);
 app.use("/", registration);
 app.use("/", login);
 // middleware

@@ -1,6 +1,6 @@
 import StudentForm from "../src/components/forms/StudentForm";
 import { useState } from "react";
-import TeacherForm from "../src/components/forms/TeacherForm";
+import TeacherForm from "../src/components/teacher/TeacherForm";
 const login = () => {
     const [isStudent, setIsStudent] = useState(false);
     return (

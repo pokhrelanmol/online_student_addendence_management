@@ -6,6 +6,7 @@ interface Student {
     roll_no: string;
     mobile: number;
     class: string;
+    teacher: string | any;
 }
 const StudentSchema = new mongoose.Schema<Student>(
     {
@@ -24,6 +25,9 @@ const StudentSchema = new mongoose.Schema<Student>(
                 values: ["Nursery", "LKG", "UKG", "ONE", "TWO"],
                 message: "could not add the {VALUE}",
             },
+        },
+        teacher: {
+            type: mongoose.Schema.Types.ObjectId,
         },
     },
     { timestamps: true }
