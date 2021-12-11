@@ -38,7 +38,6 @@ const TeacherForm = () => {
                 email,
                 password,
             });
-            console.log(res);
             if (res.status === 200) {
                 setUser({ name: email, role: "teacher" });
                 alert(res.data.message);

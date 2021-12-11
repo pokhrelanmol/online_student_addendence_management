@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useUser } from "../src/context/UserContext";
 import CreateStudent from "../src/components/teacher/CreateStudent";
 import GetStudents from "../src/components/teacher/GetStudents";
+import GiveAttendence from "../src/components/student/GiveAttendence";
 const IndexPage = () => {
     const router = useRouter();
     const { user } = useUser();
@@ -19,7 +20,7 @@ const IndexPage = () => {
                 <title>home page</title>
             </Head>
             {user.role === "student" ? (
-                <h1>student page</h1>
+                <GiveAttendence />
             ) : (
                 <>
                     <CreateStudent />

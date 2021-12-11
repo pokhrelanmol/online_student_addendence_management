@@ -1,4 +1,4 @@
-import StudentForm from "../src/components/forms/StudentForm";
+import StudentForm from "../src/components/student/StudentForm";
 import { useState } from "react";
 import TeacherForm from "../src/components/teacher/TeacherForm";
 const login = () => {

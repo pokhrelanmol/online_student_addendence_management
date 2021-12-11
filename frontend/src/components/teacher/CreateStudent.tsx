@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useUser } from "../../context/UserContext";
-type StudentState = {
+export interface StudentState {
     name: string;
     email: string;
     roll_no: string;
     class: string;
     mobile: number;
-};
+}
 const CreateStudent = () => {
     const { user } = useUser();
     const [student, setStudent] = useState<StudentState>({
@@ -88,8 +88,8 @@ const CreateStudent = () => {
                     <option value="Nursery">Nursery</option>
                     <option value="LKG">LKG</option>
                     <option value="UKG">UKG</option>
-                    <option value="One">One</option>
-                    <option value="Two">Two</option>
+                    <option value="One">ONE</option>
+                    <option value="Two">TWO</option>
                 </select>
                 <button onClick={handleCreateStudent}>Create Student</button>
             </div>

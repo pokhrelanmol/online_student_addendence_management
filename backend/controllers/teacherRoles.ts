@@ -19,8 +19,6 @@ interface Teacher {
 export const getStudents = async (request: Request, response: Response) => {
     const { _class } = request.query as unknown as QueryString;
 
-    console.log(request.query);
-    console.log(request.params);
     let queryObject: QueryObject = {};
     if (_class) {
         queryObject = { class: _class };
@@ -34,9 +32,7 @@ export const getStudents = async (request: Request, response: Response) => {
         ...queryObject,
         teacher: checkTeacher[0]._id,
     });
-    console.log(totalStudents);
     if (totalStudents.length <= 0) {
-        console.log("no students");
         response.status(404).json({ error: "No Students Found" });
     } else {
         response.json({ totalStudents });
@@ -52,4 +48,28 @@ export const addStudent = async (req: Request, res: Response) => {
     const student = await Student.create(data);
 
     res.status(201).json({ message: "student added" });
+};
+export const takeAttendence = async (req: Request, res: Response) => {
+    const { _class, user } = req.query;
+    const checkTeacher: Teacher[] = await RegisterTeacher.find({
+        user,
+    });
+
+    const findClass = await Student.updateMany(
+        {
+            class: _class,
+            teacher: checkTeacher[0]._id,
+        },
+        {
+            takeAttendence: false,
+        },
+        {
+            new: true,
+            upsert: true,
+            runValidators: true,
+        },
+        (err, doc) => {
+            return doc;
+        }
+    );
 };

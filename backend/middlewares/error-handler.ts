@@ -11,7 +11,6 @@ const errorHandlerMiddleware = async (
     res: Response,
     next: NextFunction
 ) => {
-    console.log(err);
     if (err.code === 11000) {
         return res
             .status(400)
