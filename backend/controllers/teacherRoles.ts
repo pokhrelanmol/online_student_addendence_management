@@ -61,15 +61,25 @@ export const takeAttendence = async (req: Request, res: Response) => {
             teacher: checkTeacher[0]._id,
         },
         {
-            takeAttendence: false,
-        },
-        {
-            new: true,
-            upsert: true,
-            runValidators: true,
-        },
-        (err, doc) => {
-            return doc;
+            $set: { takeAttendence: true },
         }
     );
+    res.json({ message: "attendence sheet presented successfully" });
+};
+export const finishAttendence = async (req: Request, res: Response) => {
+    const { _class, user } = req.query;
+    const checkTeacher: Teacher[] = await RegisterTeacher.find({
+        user,
+    });
+
+    const findClass = await Student.updateMany(
+        {
+            class: _class,
+            teacher: checkTeacher[0]._id,
+        },
+        {
+            $set: { takeAttendence: false },
+        }
+    );
+    res.json({ message: "Attendence Completed! Hope You Enjoyed the Process" });
 };

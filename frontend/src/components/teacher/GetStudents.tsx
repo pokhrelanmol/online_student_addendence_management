@@ -21,7 +21,6 @@ const GetStudents = () => {
                 alert(" No Students found");
             } else {
                 setStudents(res.data.totalStudents);
-                console.log(students);
             }
         } catch (error) {
             const errRes = error.response;
@@ -47,7 +46,7 @@ const GetStudents = () => {
                 <button onClick={getStudents}>Get</button>
             </div>
             <div>
-               <TakeAttendence _class={_class}/> 
+                <TakeAttendence _class={_class} />
                 <table className="flex flex-col items-center mx-auto   border-black border bg-gray-200 overflow-y-scroll   overflow-scroll ">
                     <thead className="w-full">
                         <tr className=" text-white  flex justify-around items-center w-full  bg-black border-b border-gray-600 uppercase ">
@@ -60,7 +59,10 @@ const GetStudents = () => {
                         </tr>
                     </thead>
                     {students?.map((student) => (
-                        <tbody className="flex justify-center  flex-col ">
+                        <tbody
+                            key={Math.floor(Math.random() * 100)}
+                            className="flex justify-center  flex-col "
+                        >
                             <tr className="text-center  text-gray-500">
                                 <td className=" border w-64 border-gray-600 p-3 capitalize ">
                                     {student.name}
