@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import connectDB from "../connectDB";
-import Student from "../models/Student";
+import Student from "../models/User";
 import { dummyStudents } from "../dummyData";
 import { config } from "dotenv";
 config();

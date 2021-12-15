@@ -1,6 +1,6 @@
 import express from "express";
-import { registerTeacher, regsiterStudent } from "../controllers/registration";
+import { regsiterStudent, registerTeacher } from "../controllers/register";
 const router = express.Router();
 router.route("/registerTeacher").post(registerTeacher);
-router.route("/registerStudent").post(regsiterStudent);
+router.route("/registerStudent").patch(regsiterStudent);
 export default router;

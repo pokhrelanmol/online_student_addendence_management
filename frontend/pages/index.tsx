@@ -3,9 +3,9 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "../src/context/UserContext";
-import CreateStudent from "../src/components/teacher/CreateStudent";
-import GetStudents from "../src/components/teacher/GetStudents";
-import GiveAttendence from "../src/components/student/GiveAttendence";
+import CreateStudent from "../src/components/CreateStudent";
+import GetStudents from "../src/components/GetStudents";
+import GiveAttendence from "../src/components/GiveAttendence";
 const IndexPage = () => {
     const router = useRouter();
     const { user } = useUser();

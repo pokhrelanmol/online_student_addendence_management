@@ -1,35 +1,61 @@
 import express, { Request, Response } from "express";
-import RegisterTeacher from "../models/RegisterTeacher";
 import bcrypt from "bcryptjs";
-import RegisterStudent from "../models/RegisterStudent";
-// *TEACHER LOGIN
-export const loginTeacher = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-    const loggedTeacher = await RegisterTeacher.findOne({
-        email,
-    }).lean();
-    if (!loggedTeacher) {
-        res.status(400).json({ error: "You are not registered" });
-    }
-    const checkPasword = await bcrypt.compare(password, loggedTeacher.password);
-    if (checkPasword) {
-        res.status(200).json({ message: "login successfull" });
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import Teacher from "../models/Teacher";
+import Student from "../models/Student";
+import { access } from "fs";
+dotenv.config();
+
+let refreshTokens: string[] = [];
+const generateAccessToken = (_email: string) => {
+    return jwt.sign(
+        { _email },
+        process.env.ACCESS_TOKEN_SECRET as unknown as string,
+        { expiresIn: "1m" }
+    );
+};
+export const login = async (req: Request, res: Response) => {
+    const { email, password, rollNumber, isTeacher } = req.body;
+    let user;
+    if (req.body.isTeacher) {
+        user = await Teacher.findOne({
+            email,
+        }).lean();
     } else {
-        res.status(400).json({ error: "invalid username or password" });
+        user = await Student.findOne({
+            email,
+            rollNumber,
+        });
+    }
+    if (!user) res.status(400).json({ error: "User not found" });
+
+    const passwordCorrect = await bcrypt.compare(password, user.password);
+
+    if (passwordCorrect) {
+        const accessToken = generateAccessToken(email);
+        const refreshToken = jwt.sign(
+            email,
+            process.env.REFRESH_TOKEN_SECRET as unknown as string
+        );
+        refreshTokens.push(refreshToken);
+        res.json({ accessToken: accessToken, refreshToken: refreshToken });
+        // TODO: Update the user
     }
 };
-// * STUDENT LOGIN
-export const loginStudent = async (req: Request, res: Response) => {
-    const { email, roll_no, password } = req.body;
+export const generateNewToken = (req: Request, res: Response) => {
+    // code for the refresh token
 
-    const loggedStudent = await RegisterStudent.findOne({
-        email,
-        roll_no,
-    });
-    const checkPasword = await bcrypt.compare(password, loggedStudent.password);
-    if (checkPasword) {
-        res.status(200).json({ message: "login successfull" });
-    } else {
-        res.status(400).json({ error: "invalid username or password" });
-    }
+    const refreshToken = req.body.token;
+    if (refreshToken === null) return res.status(401);
+    if (!refreshTokens.includes(refreshToken)) return res.status(403);
+    jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET as unknown as string,
+        (err: any, user: any) => {
+            if (err) return res.status(403);
+            const accessToken = generateAccessToken(user.email);
+            res.json({ accessToken: accessToken });
+        }
+    );
 };

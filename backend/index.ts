@@ -8,9 +8,9 @@ import connectDB from "./connectDB";
 
 import cron from "node-cron";
 // CONTROLLERS
-import teacherRole from "./routes/teacherRole";
-import registration from "./routes/registration";
+import registration from "./routes/register";
 import login from "./routes/login";
+import teacher from "./routes/teacher";
 
 dotenv.config();
 const app = express();
@@ -25,9 +25,9 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // routes
-app.use("/", teacherRole);
 app.use("/", registration);
 app.use("/", login);
+app.use("/", teacher);
 // middleware
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
