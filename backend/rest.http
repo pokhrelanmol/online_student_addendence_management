@@ -1,0 +1,79 @@
+GET http://localhost:3001/api/getStudents
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJpYXQiOjE2NDAwOTI4NDQsImV4cCI6MTY0MDE3OTI0NH0.a_uWjmjVbrhI3WkdVtU_hvORU_I3lPpOlEZcruY_97k
+
+###
+POST  http://localhost:3001/api/createStudent
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJpYXQiOjE2NDAwOTI4NDQsImV4cCI6MTY0MDE3OTI0NH0.a_uWjmjVbrhI3WkdVtU_hvORU_I3lPpOlEZcruY_97k
+
+###
+POST  http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+      "email":"santosh@g.com",
+      "password":"12345678",
+      "isTeacher":true
+}
+
+###
+POST  http://localhost:3001/api/auth/refreshToken
+Content-Type: application/json
+
+{
+      "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJpYXQiOjE2NDAxNTA3NjYsImV4cCI6MTY3MTcwODM2Nn0.Aw4HQgmllpDk20rvv785Ij2b-euIK6lzXXMoI4HBlhw"
+ }
+
+
+
+###
+DELETE http://localhost:3001/api/auth/logout
+Content-Type: application/json
+
+{
+      "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJpYXQiOjE2NDAwNTAzNTYsImV4cCI6MTY3MTYwNzk1Nn0._UX3_qQ8FBIHYnJ5weHE51-FdQlJfGUe6mjBr_5kcgw"
+     }
+
+
+
+###
+
+POST  http://localhost:3001/api/auth/registerTeacher
+Content-Type: application/json
+
+{
+      "name":"rachana",
+      "email":"rachana@gmail.com",
+      "password":"12345678",
+      "subjects":["english","novles"],
+      "classes":["3","4"]
+      
+       }
+
+###
+
+PATCH   http://localhost:3001/api/auth/registerStudent
+Content-Type: application/json
+
+{
+      "email":"anmol@gmail.com",
+      "rollNumber":"456",
+      "password":"12345678"
+      
+       }
+
+
+
+###
+
+ GET http://localhost:3001/api/auth/registerStudent?_class=LKG
+Content-Type: application/json
+
+{
+      "email":"anmol@gmail.com",
+      "rollNumber":"456",
+      "password":"12345678"
+      
+       }
+

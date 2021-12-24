@@ -1,8 +1,8 @@
 import express from "express";
 import { createStudent, getStudents } from "../controllers/teacher";
+import { verifyAccessToken } from "../helpers/jwt_helper";
 const router = express.Router();
 
-import { authenticateToken } from "../middlewares/authenticateToken";
-router.route("/getStudents").get(authenticateToken, getStudents);
-router.route("/createStudent/:email").post(createStudent);
+router.route("/getStudents").get(verifyAccessToken, getStudents);
+router.route("/createStudent").post(verifyAccessToken, createStudent);
 export default router;
