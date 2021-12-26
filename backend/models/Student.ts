@@ -5,7 +5,7 @@ interface StudentType extends TeacherType {
     rollNumber: number;
     class: string;
     isRegistered: boolean;
-    teachers: mongoose.Schema.Types.ObjectId[];
+    subjects: mongoose.Schema.Types.ObjectId[];
 }
 
 const StudentSchema = new mongoose.Schema<StudentType>({
@@ -17,10 +17,8 @@ const StudentSchema = new mongoose.Schema<StudentType>({
     email: { type: String, unique: true },
     rollNumber: { type: Number, required: true },
     class: { type: String, required: true },
-    subjects: [String],
+    subjects: [{ type: mongoose.Schema.Types.ObjectId, ref: Subject }],
     password: { type: String, minlength: 6 },
-    // teacher field should use the id of creator
-    teachers: [{ type: mongoose.Schema.Types.ObjectId, ref: Teacher }],
     isRegistered: Boolean,
 });
 

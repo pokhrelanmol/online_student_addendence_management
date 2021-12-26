@@ -8,7 +8,7 @@ export const signAccessToken = (userId: string, role: string, name: string) => {
         const payload = { aud: userId, role, name };
         const secret = process.env.ACCESS_TOKEN_SECRET as string;
         const options = {
-            expiresIn: "1d",
+            expiresIn: "1m",
         };
         jwt.sign(payload, secret, options, (err, token) => {
             if (err) {
@@ -21,7 +21,6 @@ export const signAccessToken = (userId: string, role: string, name: string) => {
         });
     });
 };
-
 export const verifyAccessToken = (
     req: Request,
     res: Response,
@@ -29,12 +28,11 @@ export const verifyAccessToken = (
 ) => {
     const authHeader = <string>req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
-    console.log(token);
     if (!token) throw new createError.Unauthorized();
     jwt.verify(
         token,
         process.env.ACCESS_TOKEN_SECRET as string,
-        (err, user) => {
+        (err, user: any) => {
             if (err) {
                 const message =
                     err.name === "JsonWebTokenError"
@@ -47,7 +45,56 @@ export const verifyAccessToken = (
         }
     );
 };
-
+export const verifyAccessTokenForTeacher = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    const authHeader = <string>req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    if (!token) throw new createError.Unauthorized();
+    jwt.verify(
+        token,
+        process.env.ACCESS_TOKEN_SECRET as string,
+        (err, user: any) => {
+            if (err) {
+                const message =
+                    err.name === "JsonWebTokenError"
+                        ? "Unauthorized"
+                        : err.message;
+                return next(new createError.Unauthorized(message));
+            }
+            if (user.role !== "teacher") throw new createError.Unauthorized();
+            (req as any).user = user;
+            next();
+        }
+    );
+};
+export const verifyAccessTokenForStudent = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    const authHeader = <string>req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    if (!token) throw new createError.Unauthorized();
+    jwt.verify(
+        token,
+        process.env.ACCESS_TOKEN_SECRET as string,
+        (err, user: any) => {
+            if (err) {
+                const message =
+                    err.name === "JsonWebTokenError"
+                        ? "Unauthorized"
+                        : err.message;
+                return next(new createError.Unauthorized(message));
+            }
+            if (user.role !== "student") throw new createError.Unauthorized();
+            (req as any).user = user;
+            next();
+        }
+    );
+};
 export const signRefreshToken = (
     userId: string,
     role: string,
@@ -91,7 +138,6 @@ export const verifyRefreshToken = (refreshToken: string) => {
             (err, payload: any) => {
                 if (err) return reject(new createError.Unauthorized());
                 const userId = payload.aud;
-                console.log(payload);
                 client
                     .GET(userId)
                     .then((result) => {

@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
+import Class from "./Class";
 import Subject from "./Subject";
 
 export interface TeacherType {
     name: string;
     email: string;
     classes: String[];
-    subjects: String[];
+    subject: String[];
     password: string;
 }
 
@@ -16,8 +17,8 @@ const TeacherSchema = new mongoose.Schema<TeacherType>({
         minlength: [3, "name should be of more then 3 characters"],
     },
     email: { type: String, unique: true },
-    classes: { type: [String], required: true },
-    subjects: [String],
+    classes: [{ type: mongoose.Types.ObjectId, ref: Class }],
+    subject: mongoose.Schema.Types.ObjectId,
     password: { type: String, minlength: 6 },
 });
 

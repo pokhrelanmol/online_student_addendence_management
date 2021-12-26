@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import createError from "http-errors";
-import { verifyAccessToken } from "../helpers/jwt_helper";
+import { verifyAccessTokenForTeacher } from "../helpers/jwt_helper";
 import Student from "../models/Student";
 import Teacher from "../models/Teacher";
 export const createStudent = async (req: any, res: Response) => {
@@ -11,7 +11,7 @@ export const createStudent = async (req: any, res: Response) => {
     if (!_student) {
         const student = await Student.create({
             ...req.body,
-            teachers: [teacher],
+            subjects: [teacher.subject],
         });
         res.status(201).json({ student });
     } else {
@@ -19,7 +19,7 @@ export const createStudent = async (req: any, res: Response) => {
         could be possibe that another teacher have already created that student  */
         const student = await Student.findOneAndUpdate(
             { email: req.body.email },
-            { $push: { teachers: teacher } },
+            { $push: { subjects: teacher.subject } },
             { new: true }
         );
         res.status(201).json({ student });
@@ -27,7 +27,6 @@ export const createStudent = async (req: any, res: Response) => {
 };
 export const getStudents = async (req: any, res: Response) => {
     // req.user is comming from jwt after verification
-    // find the students who have a teacher as logged in user
     const teacher: any = await Teacher.findOne({ _id: req.user.aud });
 
     const student = await Student.find({ teachers: teacher });

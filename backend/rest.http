@@ -1,12 +1,18 @@
-GET http://localhost:3001/api/getStudents
+GET http://localhost:3001/api/getStudents 
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJpYXQiOjE2NDAwOTI4NDQsImV4cCI6MTY0MDE3OTI0NH0.a_uWjmjVbrhI3WkdVtU_hvORU_I3lPpOlEZcruY_97k
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQwMzk2NzE3LCJleHAiOjE2NDAzOTY4Mzd9.rv1z86C1zWIUVIS00gObevXSw1Aclqhc5XgsRLxvLpk
 
 ###
 POST  http://localhost:3001/api/createStudent
 Content-Type: application/json
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJpYXQiOjE2NDAwOTI4NDQsImV4cCI6MTY0MDE3OTI0NH0.a_uWjmjVbrhI3WkdVtU_hvORU_I3lPpOlEZcruY_97k
 
+{
+      "name":"Karuna",
+      "email":"karuna@gmail.com",
+      "rollNumber":123,
+      "class":"UKG",
+}
 ###
 POST  http://localhost:3001/api/auth/login
 Content-Type: application/json
@@ -22,7 +28,7 @@ POST  http://localhost:3001/api/auth/refreshToken
 Content-Type: application/json
 
 {
-      "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJpYXQiOjE2NDAxNTA3NjYsImV4cCI6MTY3MTcwODM2Nn0.Aw4HQgmllpDk20rvv785Ij2b-euIK6lzXXMoI4HBlhw"
+      "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJyb2xlIjoidGVhY2hlciIsImlhdCI6MTY0MDI2NTE1OCwiZXhwIjoxNjcxODIyNzU4fQ.edSYZdWknh03z1h0UrZV4Rl5U-jWPzoLsivkPOD8zIk"
  }
 
 
@@ -43,11 +49,11 @@ POST  http://localhost:3001/api/auth/registerTeacher
 Content-Type: application/json
 
 {
-      "name":"rachana",
-      "email":"rachana@gmail.com",
+      "name":"santosh",
+      "email":"santosh@gmail.com",
       "password":"12345678",
-      "subjects":["english","novles"],
-      "classes":["3","4"]
+      "subject":"Economics",
+      "classes":["1","2"]
       
        }
 
