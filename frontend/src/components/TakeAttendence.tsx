@@ -1,17 +1,19 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { sendAccessToken } from "../../helpers";
 import { useUser } from "../context/UserContext";
 type IProps = { _class: string };
 
 const TakeAttendence = ({ _class }: IProps) => {
     const { user } = useUser();
     const [_takeAttendence, setTakeAttendence] = useState(true);
-    const takeAttendence = async () => {
+    const openAttendence = async () => {
+        // TODO:check if the attendence sheet already presented or not
         try {
-            const res = await axios.patch(
-                `http://localhost:3001/takeAttendence?user=${user.name}&_class=${_class}`
+            const res: any = await sendAccessToken(
+                `http://localhost:3001/api/openAttendence?_class=${_class}`
             );
-            alert(res.data.message);
+            alert(res.data.data.message);
             setTakeAttendence(false);
         } catch (error) {
             const errRes = error.response;
@@ -43,7 +45,7 @@ const TakeAttendence = ({ _class }: IProps) => {
         <div className="flex justify-end">
             {_takeAttendence ? (
                 <button
-                    onClick={takeAttendence}
+                    onClick={openAttendence}
                     className="py-2 px-4 bg-indigo-700 text-white mb-2"
                 >
                     Take Attendence

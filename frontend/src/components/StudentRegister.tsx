@@ -1,8 +1,7 @@
 import axios from "axios";
-import { constants } from "crypto";
 import Router from "next/router";
-import React, { useState } from "react";
-import { setTokens } from "../../helpers";
+import React, { useState, useEffect } from "react";
+import { joinClasses, setTokens } from "../../helpers";
 import CircularLoader from "./CircularLoader";
 type Students = {
     rollNumber: string;
@@ -15,6 +14,26 @@ const StudentRegister = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [showPasswordField, setShowPasswordField] = useState(false);
     const [password, setPassword] = useState("");
+
+    const [classes, setClasses] = useState<string[]>(["LKG", "UKG"]);
+    useEffect(() => {
+        const getAllClasses = async () => {
+            try {
+                const res = await axios.get(
+                    "http://localhost:3001/api/classes"
+                );
+                let _classes = [];
+                res.data.forEach((_class: { name: string }) => {
+                    _classes.push(_class.name);
+                });
+                console.log(classes);
+                setClasses([..._classes]);
+            } catch (error) {
+                console.log(error.response);
+            }
+        };
+        getAllClasses();
+    }, []);
     const handleClassChange = async (
         e: React.ChangeEvent<HTMLSelectElement>
     ) => {
@@ -57,7 +76,12 @@ const StudentRegister = () => {
             const res = await axios.get(
                 `http://localhost:3001/api/auth/registerStudent/?rollNumber=${rollNumber}&email=${email}&password=${password}`
             );
-            setTokens(res.data.tokens);
+            console.log(res);
+            const tokens = {
+                accessToken: res.data.accessToken,
+                refreshToken: res.data.refreshToken,
+            };
+            setTokens(tokens);
             alert(res.data.message);
             Router.push("/");
         } catch (error) {
@@ -72,10 +96,9 @@ const StudentRegister = () => {
                 <label htmlFor=""> select class</label>
                 <select name="" id="" onChange={handleClassChange}>
                     <option value={null}>--select--</option>
-                    <option value="Nursery">Nursery</option>
-                    <option value="LKG">LKG</option>
-                    <option value="UKG">UKG</option>
-                    <option value="three">three</option>
+                    {classes?.map((_class: string) => (
+                        <option value={_class}>{_class}</option>
+                    ))}
                 </select>
             </div>
             {students.length > 0 ? (

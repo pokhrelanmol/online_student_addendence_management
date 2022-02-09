@@ -1,26 +1,27 @@
 GET http://localhost:3001/api/getStudents 
+# this url can only be called from frontend
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQwMzk2NzE3LCJleHAiOjE2NDAzOTY4Mzd9.rv1z86C1zWIUVIS00gObevXSw1Aclqhc5XgsRLxvLpk
-
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQ0NDEyMDc0LCJleHAiOjE2NDQ0MjI4NzR9.t5ce_bAzi0yeU-3nIrOI9zLxNNGv9ZgU-B0yN4v4FFY 
 ###
 POST  http://localhost:3001/api/createStudent
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWI5NDdkN2ExYzQ2MTdhOTkxMjI0YTEiLCJpYXQiOjE2NDAwOTI4NDQsImV4cCI6MTY0MDE3OTI0NH0.a_uWjmjVbrhI3WkdVtU_hvORU_I3lPpOlEZcruY_97k
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQwNjEwMTM1LCJleHAiOjE2NDA2MTM3MzV9.eEwN1xHMTo4Ed-97flGdGcR79QsqEFI4oIJt-RhlagQ 
 
 {
-      "name":"Karuna",
-      "email":"karuna@gmail.com",
+      "name":"anmol",
+      "email":"anmol@gmail.com",
       "rollNumber":123,
-      "class":"UKG",
+      "class":"LKG"
 }
 ###
 POST  http://localhost:3001/api/auth/login
 Content-Type: application/json
 
 {
-      "email":"santosh@g.com",
-      "password":"12345678",
-      "isTeacher":true
+      "email":"anmol@gmail.com",
+       "password":"12345678",
+       "rollNumber":"123"
+    
 }
 
 ###
@@ -52,8 +53,8 @@ Content-Type: application/json
       "name":"santosh",
       "email":"santosh@gmail.com",
       "password":"12345678",
-      "subject":"Economics",
-      "classes":["1","2"]
+      "subject":"English",
+      "classes":["UKG","LKG"]
       
        }
 
@@ -63,8 +64,8 @@ PATCH   http://localhost:3001/api/auth/registerStudent
 Content-Type: application/json
 
 {
-      "email":"anmol@gmail.com",
-      "rollNumber":"456",
+      "email":"karuna@gmail.com",
+      "rollNumber":"123",
       "password":"12345678"
       
        }
@@ -83,3 +84,17 @@ Content-Type: application/json
       
        }
 
+###
+
+ PATCH  http://localhost:3001/api/openAttendence/?_class=LKG
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5YmEwMGExZjhlNGUzN2NkZmMzYWIiLCJyb2xlIjoic3R1ZGVudCIsIm5hbWUiOiJhbm1vbCIsImlhdCI6MTY0NDQxODg0OSwiZXhwIjoxNjQ0NDI5NjQ5fQ._Q3ZfKPtqc6tKtPdFm1pwVNbSueI60Mn1TivM-sc_YY 
+
+
+
+
+###
+
+ PATCH  http://localhost:3001/api/present/?subject=Economics
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5YmEwMGExZjhlNGUzN2NkZmMzYWIiLCJyb2xlIjoic3R1ZGVudCIsIm5hbWUiOiJhbm1vbCIsImlhdCI6MTY0NDQxODc2OCwiZXhwIjoxNjQ0NDI5NTY4fQ.sK4Gz-sC3qvTXLPO7QF0ql9YnmoKuAdZKBEz_VFxQrA

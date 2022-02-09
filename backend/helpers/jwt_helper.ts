@@ -8,7 +8,7 @@ export const signAccessToken = (userId: string, role: string, name: string) => {
         const payload = { aud: userId, role, name };
         const secret = process.env.ACCESS_TOKEN_SECRET as string;
         const options = {
-            expiresIn: "1m",
+            expiresIn: "3h",
         };
         jwt.sign(payload, secret, options, (err, token) => {
             if (err) {

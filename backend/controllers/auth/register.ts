@@ -117,11 +117,15 @@ export const regsiterStudent = async (req: Request, res: Response) => {
                 const refreshToken = await signRefreshToken(
                     user.id as string,
                     "student",
-
                     user.name as string
                 );
 
-                res.status(201).json({ accessToken, refreshToken });
+                console.log(accessToken);
+                res.status(201).json({
+                    accessToken,
+                    refreshToken,
+                    message: "Student registered",
+                });
             }
         );
     }

@@ -6,6 +6,8 @@ interface StudentType extends TeacherType {
     class: string;
     isRegistered: boolean;
     subjects: mongoose.Schema.Types.ObjectId[];
+    teachers: mongoose.Schema.Types.ObjectId[];
+    isAttendenceOpen: Boolean;
 }
 
 const StudentSchema = new mongoose.Schema<StudentType>({
@@ -18,8 +20,10 @@ const StudentSchema = new mongoose.Schema<StudentType>({
     rollNumber: { type: Number, required: true },
     class: { type: String, required: true },
     subjects: [{ type: mongoose.Schema.Types.ObjectId, ref: Subject }],
+    teachers: [{ type: mongoose.Schema.Types.ObjectId, ref: Teacher }],
     password: { type: String, minlength: 6 },
     isRegistered: Boolean,
+    isAttendenceOpen: Boolean,
 });
 
 export default mongoose.models.Student ||

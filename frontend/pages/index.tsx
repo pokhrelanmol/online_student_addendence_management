@@ -14,8 +14,9 @@ const IndexPage = () => {
 
     useEffect(() => {
         sendAccessToken("http://localhost:3001/api")
-            .then((payload: IPayload) => {
+            .then(({ payload }: IPayload) => {
                 user.name = payload.name;
+                user.role = payload.role;
                 router.push("/");
             })
             .catch((err) => router.push("/login"));

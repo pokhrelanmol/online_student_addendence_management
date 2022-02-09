@@ -9,6 +9,7 @@ dotenv.config();
 import createError from "http-errors";
 import { signAccessToken, signRefreshToken } from "../../helpers/jwt_helper";
 export const login = async (req: Request, res: Response) => {
+    console.log(req.body);
     const { email, password, rollNumber, isTeacher } = req.body;
     if (!email || !password) {
         throw new createError.BadRequest("email and password is required");
@@ -26,7 +27,8 @@ export const login = async (req: Request, res: Response) => {
             rollNumber,
         });
     }
-    if (!user) throw new createError.BadRequest("You are not Registered");
+    if (!user || !user.password)
+        throw new createError.BadRequest("You are not Registered");
 
     const passwordCorrect = await bcrypt.compare(password, user.password);
     if (passwordCorrect) {

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { sendAccessToken } from "../../helpers";
 import { useUser } from "../context/UserContext";
 import { StudentState } from "./CreateStudent";
 import TakeAttendence from "./TakeAttendence";
@@ -13,20 +14,21 @@ const GetStudents = () => {
     const [_class, _setClass] = useState("");
     const getStudents = async () => {
         try {
-            const res = await axios.get(
-                `http://localhost:3001/getStudents/${user.name}?_class=${_class}`
+            const res: any = await sendAccessToken(
+                `http://localhost:3001/api/getStudents?_class=${_class}`
             );
             // incase server doesn't return error
-            if (res.data.totalStudents.length <= 0) {
+            if (res.data.data.length <= 0) {
                 alert(" No Students found");
             } else {
-                setStudents(res.data.totalStudents);
+                setStudents(res.data.data);
             }
         } catch (error) {
             const errRes = error.response;
-            if (errRes.status === 404) {
-                alert(errRes.data.error);
-            } else if (errRes.status === 500) {
+            console.log(errRes);
+            if (errRes?.status === 404) {
+                alert(errRes.data.error.message);
+            } else if (errRes?.status === 500) {
                 alert(errRes.data.error);
             }
         }

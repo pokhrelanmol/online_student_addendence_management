@@ -2,9 +2,11 @@ import { rejects } from "assert";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 export interface IPayload {
-    role: string;
-    aud: string;
-    name: string;
+    payload: {
+        role: string;
+        aud: string;
+        name: string;
+    };
 }
 export const joinClasses = (...classes: string[]) => {
     return classes.join(" ");
@@ -29,9 +31,8 @@ export const sendAccessToken = async (endPoint: string) => {
                 },
             });
             const payload: IPayload = jwt.decode(tokens.accessToken);
-            resolve(payload);
+            resolve({ payload, data: res });
         } catch (err) {
-            console.log(err.response);
             if (err.response.data.error.message === "jwt expired") {
                 const generateRefreshToken = async () => {
                     const tokens: any = JSON.parse(
@@ -58,6 +59,7 @@ export const sendAccessToken = async (endPoint: string) => {
                 };
                 generateRefreshToken();
             }
+            reject(err);
         }
     });
 };

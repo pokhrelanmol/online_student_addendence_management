@@ -11,6 +11,7 @@ import cron from "node-cron";
 import registration from "./routes/auth/register";
 import login from "./routes/auth/login";
 import teacher from "./routes/teacher";
+import attendence from "./routes/attendence";
 import refreshToken from "./routes/auth/refreshToken";
 import logout from "./routes/auth/logout";
 import { verifyAccessToken } from "./helpers/jwt_helper";
@@ -43,6 +44,7 @@ app.use("/api/auth", login);
 app.use("/api/auth", refreshToken);
 app.use("/api/auth", logout);
 app.use("/api", teacher);
+app.use("/api", attendence);
 // middleware
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
