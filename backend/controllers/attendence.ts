@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import createError from "http-errors";
-import { create } from "ts-node";
 import Attendence from "../models/Attendence";
 import Class from "../models/Class";
 import Student from "../models/Student";
@@ -87,4 +86,19 @@ export const closeAttendence = async (req: any, res: Response) => {
         { $set: { isAttendenceOpen: false } }
     );
     res.json({ message: "attendence closed" });
+};
+export const viewAttendence = async (req: any, res: Response) => {
+    const _class = req.query._class;
+    const classId = await Class.findOne({ name: _class }).select("_id");
+    const students: any = await Attendence.find({
+        teacher: req.user.aud,
+        class: classId,
+    }).populate("student");
+    console.log(students.length);
+    await students.map((student: { name: string }) => {
+        console.log(student);
+        const _students: string[] = [];
+        _students.push(student.name);
+    });
+    res.json(students);
 };

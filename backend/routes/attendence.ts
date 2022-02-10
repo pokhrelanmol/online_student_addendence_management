@@ -4,6 +4,7 @@ import {
     handlePresent,
     provideClasses,
     closeAttendence,
+    viewAttendence,
 } from "../controllers/attendence";
 import {
     verifyAccessTokenForStudent,
@@ -20,4 +21,7 @@ router.route("/classes").get(verifyAccessTokenForTeacher, provideClasses);
 router
     .route("/closeAttendence")
     .patch(verifyAccessTokenForTeacher, closeAttendence);
+router
+    .route("/viewAttendence")
+    .get(verifyAccessTokenForTeacher, viewAttendence);
 export default router;
