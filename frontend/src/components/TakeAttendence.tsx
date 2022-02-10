@@ -11,7 +11,8 @@ const TakeAttendence = ({ _class }: IProps) => {
         // TODO:check if the attendence sheet already presented or not
         try {
             const res: any = await sendAccessToken(
-                `http://localhost:3001/api/openAttendence?_class=${_class}`
+                `http://localhost:3001/api/openAttendence?_class=${_class}`,
+                "patch"
             );
             alert(res.data.data.message);
             setTakeAttendence(false);
@@ -26,9 +27,11 @@ const TakeAttendence = ({ _class }: IProps) => {
     };
     const finishAttendence = async () => {
         try {
-            const res = await axios.patch(
-                `http://localhost:3001/finishAttendence?user=${user.name}&_class=${_class}`
+            const res: any = await sendAccessToken(
+                `http://localhost:3001/api/openAttendence?_class=${_class}`,
+                "patch"
             );
+
             alert(res.data.message);
             setTakeAttendence(true);
         } catch (error) {

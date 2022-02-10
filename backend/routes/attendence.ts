@@ -3,6 +3,7 @@ import {
     openAttendence,
     handlePresent,
     provideClasses,
+    closeAttendence,
 } from "../controllers/attendence";
 import {
     verifyAccessTokenForStudent,
@@ -15,5 +16,8 @@ router
     .patch(verifyAccessTokenForTeacher, openAttendence);
 // router.route("/closeAttendence").patch("closeAttendence");
 router.route("/present").patch(verifyAccessTokenForStudent, handlePresent);
-router.route("/classes").get(provideClasses);
+router.route("/classes").get(verifyAccessTokenForTeacher, provideClasses);
+router
+    .route("/closeAttendence")
+    .patch(verifyAccessTokenForTeacher, closeAttendence);
 export default router;

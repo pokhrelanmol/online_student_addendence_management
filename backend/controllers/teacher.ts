@@ -5,9 +5,14 @@ import Class from "../models/Class";
 import Student from "../models/Student";
 import Teacher from "../models/Teacher";
 export const createStudent = async (req: any, res: Response) => {
-    console.log(req.body);
     const _class = await Class.findOne({ name: req.body.class });
     if (!_class) throw new createError.NotFound("class not found");
+    const doesStudentExist = await Student.findOne({
+        teachers: req.user.aud,
+        ...req.body,
+    });
+    if (doesStudentExist)
+        throw new createError.Conflict("student already exist");
     const teacher = await Teacher.findOne({
         _id: req.user.aud,
         classes: _class.id,
@@ -21,7 +26,10 @@ export const createStudent = async (req: any, res: Response) => {
             subjects: [teacher.subject],
             teachers: [teacher.id],
         });
-        res.status(201).json({ student });
+        res.status(201).json({
+            student,
+            message: "student created successfully",
+        });
     } else {
         /* only update the reference in the teachers array because it 
         could be possibe that another teacher have already created that student  */

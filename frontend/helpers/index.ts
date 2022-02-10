@@ -20,16 +20,38 @@ export const setTokens = (tokens: ITokens) => {
     return;
 };
 
-export const sendAccessToken = async (endPoint: string) => {
+export const sendAccessToken = async (
+    endPoint: string,
+    method: string,
+    data?: any
+) => {
     return new Promise(async (resolve, reject) => {
         const tokens: any = JSON.parse(localStorage.getItem("tokens"));
         if (!tokens) reject();
+        let res;
         try {
-            const res = await axios.get(endPoint, {
-                headers: {
-                    Authorization: `Bearer ${tokens.accessToken}`,
-                },
-            });
+            if (method === "get") {
+                res = await axios.get(endPoint, {
+                    headers: {
+                        Authorization: `Bearer ${tokens.accessToken}`,
+                    },
+                });
+            } else if (method === "post") {
+                console.log(data);
+                res = await axios.post(endPoint, data, {
+                    headers: {
+                        Authorization: `Bearer ${tokens.accessToken}`,
+                    },
+                });
+            } else if (method === "patch") {
+                res = await axios.patch(endPoint, {
+                    data,
+                    headers: {
+                        Authorization: `Bearer ${tokens.accessToken}`,
+                    },
+                });
+            }
+
             const payload: IPayload = jwt.decode(tokens.accessToken);
             resolve({ payload, data: res });
         } catch (err) {

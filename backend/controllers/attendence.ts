@@ -1,19 +1,22 @@
 import { Request, Response } from "express";
 import createError from "http-errors";
+import { create } from "ts-node";
 import Attendence from "../models/Attendence";
 import Class from "../models/Class";
 import Student from "../models/Student";
 import Subject from "../models/Subject";
 import Teacher from "../models/Teacher";
 
-export const provideClasses = async (req: Request, res: Response) => {
-    console.log(req.query);
-    const classes: any = await Class.find({}, "-_id -__ v");
-    console.log(classes);
-    console.log(classes);
-    if (!classes)
-        throw new createError.NotFound("no classes found in your institution");
-    res.send(classes);
+export const provideClasses = async (req: any, res: Response) => {
+    const id = req.user.aud;
+    let classes: string[] = [];
+    const teacher = await Teacher.findOne({ _id: id }).populate("classes");
+    if (!teacher) throw new createError.NotFound("no teacher found");
+    for (let _class of teacher.classes) {
+        classes.push(_class.name);
+    }
+
+    res.json(classes);
 };
 
 export const openAttendence = async (req: any, res: Response) => {
@@ -33,7 +36,6 @@ export const openAttendence = async (req: any, res: Response) => {
 // TODO: handle student present
 export const handlePresent = async (req: any, res: Response) => {
     const student = req.user.aud;
-
     const subject = await Subject.findOne({ name: req.query.subject });
     const studentDetails = await Student.findOne({ _id: student });
     if (!studentDetails.isAttendenceOpen)
@@ -71,4 +73,18 @@ export const handlePresent = async (req: any, res: Response) => {
         { _id: student, subjects: subject },
         { isAttendenceOpen: false }
     );
+};
+export const closeAttendence = async (req: any, res: Response) => {
+    const teacher = req.user.aud;
+    const _class = req.query._class;
+    const findTeacher: any = await Teacher.findOne({ _id: teacher });
+    const updateStudent = await Student.updateMany(
+        {
+            class: _class,
+            teachers: teacher,
+            subjects: findTeacher.subject,
+        },
+        { $set: { isAttendenceOpen: false } }
+    );
+    res.json({ message: "attendence closed" });
 };

@@ -13,7 +13,7 @@ const IndexPage = () => {
     const { user } = useUser();
 
     useEffect(() => {
-        sendAccessToken("http://localhost:3001/api")
+        sendAccessToken("http://localhost:3001/api", "get")
             .then(({ payload }: IPayload) => {
                 user.name = payload.name;
                 user.role = payload.role;

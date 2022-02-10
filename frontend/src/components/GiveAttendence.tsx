@@ -1,6 +1,8 @@
 import { joinClasses } from "../../helpers";
 
 const GiveAttendence = () => {
+    // work here and make the present attendence
+
     return (
         <div className={joinClasses("space-x-4 m-5")}>
             <input type="text" disabled value="name" className="input" />

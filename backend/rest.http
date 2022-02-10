@@ -5,23 +5,22 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1Nm
 ###
 POST  http://localhost:3001/api/createStudent
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQwNjEwMTM1LCJleHAiOjE2NDA2MTM3MzV9.eEwN1xHMTo4Ed-97flGdGcR79QsqEFI4oIJt-RhlagQ 
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM4Njk4NmUzMDJkMjU4ZWQ1ZGZhYzIiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJwcmFuYSIsImlhdCI6MTY0NDQ1NjUzMywiZXhwIjoxNjQ0NDY3MzMzfQ.VgrQizOu8uwQg1FVgKHQVup3Yc2cjdMpIps-lN4i0Go 
+
 
 {
-      "name":"anmol",
-      "email":"anmol@gmail.com",
+      "name":"deepjoy",
+      "email":"deepjoy@gmail.com",
       "rollNumber":123,
-      "class":"LKG"
+      "class":"2"
 }
 ###
 POST  http://localhost:3001/api/auth/login
 Content-Type: application/json
-
 {
       "email":"anmol@gmail.com",
        "password":"12345678",
-       "rollNumber":"123"
-    
+       "rollNumber":123
 }
 
 ###
@@ -86,15 +85,15 @@ Content-Type: application/json
 
 ###
 
- PATCH  http://localhost:3001/api/openAttendence/?_class=LKG
+ PATCH  http://localhost:3001/api/openAttendence/?_class=2
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5YmEwMGExZjhlNGUzN2NkZmMzYWIiLCJyb2xlIjoic3R1ZGVudCIsIm5hbWUiOiJhbm1vbCIsImlhdCI6MTY0NDQxODg0OSwiZXhwIjoxNjQ0NDI5NjQ5fQ._Q3ZfKPtqc6tKtPdFm1pwVNbSueI60Mn1TivM-sc_YY 
-
-
-
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM4Njk4NmUzMDJkMjU4ZWQ1ZGZhYzIiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJwcmFuYSIsImlhdCI6MTY0NDQ1NjUzMywiZXhwIjoxNjQ0NDY3MzMzfQ.VgrQizOu8uwQg1FVgKHQVup3Yc2cjdMpIps-lN4i0Go 
 
 ###
-
+ PATCH  http://localhost:3001/api/closeAttendence/?_class=LKG
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQ0NDU2MzY3LCJleHAiOjE2NDQ0NjcxNjd9.Lmyp_lG4KvOiLhdZDzfhr_dgjVbHkGt2lRYM2yW7vtM 
+###
  PATCH  http://localhost:3001/api/present/?subject=Economics
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5YmEwMGExZjhlNGUzN2NkZmMzYWIiLCJyb2xlIjoic3R1ZGVudCIsIm5hbWUiOiJhbm1vbCIsImlhdCI6MTY0NDQxODc2OCwiZXhwIjoxNjQ0NDI5NTY4fQ.sK4Gz-sC3qvTXLPO7QF0ql9YnmoKuAdZKBEz_VFxQrA
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5YmEwMGExZjhlNGUzN2NkZmMzYWIiLCJyb2xlIjoic3R1ZGVudCIsIm5hbWUiOiJhbm1vbCIsImlhdCI6MTY0NDQxODc2OCwiZXhwIjoxNjQ0NDI5NTY4fQ.sK4Gz-sC3qvTXLPO7QF0ql9YnmoKuAdZKBEz_VFxQrAeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5YmEwMGExZjhlNGUzN2NkZmMzYWIiLCJyb2xlIjoic3R1ZGVudCIsIm5hbWUiOiJhbm1vbCIsImlhdCI6MTY0NDQxODk0NCwiZXhwIjoxNjQ0NDI5NzQ0fQ.XvdAsAbcdNbOpd6RENWwZgagRrrHIOWNmS_toCeT3RA

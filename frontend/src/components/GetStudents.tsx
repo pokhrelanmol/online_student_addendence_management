@@ -11,11 +11,36 @@ interface Student extends StudentState {
 const GetStudents = () => {
     const { user } = useUser();
     const [students, setStudents] = useState<Student[]>([] as Student[]);
-    const [_class, _setClass] = useState("");
+    const [classes, setClasses] = useState([]);
+    const [selectedClass, setSelectedClass] = useState("");
+
+    useEffect(() => {
+        const getClasses = async () => {
+            try {
+                const res: any = await sendAccessToken(
+                    `http://localhost:3001/api/classes`,
+                    "get"
+                );
+                if (res.data.data.length <= 0)
+                    alert("opps not classes has been alloted to you");
+                setClasses(res.data.data);
+            } catch (error) {
+                const errRes = error.response;
+                console.log(errRes);
+                if (errRes?.status === 404) {
+                    alert(errRes.data.error.message);
+                } else if (errRes?.status === 500) {
+                    alert(errRes.data.error);
+                }
+            }
+        };
+        getClasses();
+    }, []);
     const getStudents = async () => {
         try {
             const res: any = await sendAccessToken(
-                `http://localhost:3001/api/getStudents?_class=${_class}`
+                `http://localhost:3001/api/getStudents?_class=${selectedClass}`,
+                "get"
             );
             // incase server doesn't return error
             if (res.data.data.length <= 0) {
@@ -38,17 +63,17 @@ const GetStudents = () => {
         <div>
             <div>
                 <h1>Get Student List</h1>
-                <select onChange={(e) => _setClass(e.target.value)}>
-                    <option value="Nursery">Nursery</option>
-                    <option value="LKG">LKG</option>
-                    <option value="UKG">UKG</option>
-                    <option value="TWO">Two</option>
-                    <option value="ONE">One</option>
+                <select onChange={(e) => setSelectedClass(e.target.value)}>
+                    {classes?.map((className, index) => (
+                        <option key={index} value={className}>
+                            {className}
+                        </option>
+                    ))}
                 </select>
                 <button onClick={getStudents}>Get</button>
             </div>
             <div>
-                <TakeAttendence _class={_class} />
+                <TakeAttendence _class={selectedClass} />
                 <table className="flex flex-col items-center mx-auto   border-black border bg-gray-200 overflow-y-scroll   overflow-scroll ">
                     <thead className="w-full">
                         <tr className=" text-white  flex justify-around items-center w-full  bg-black border-b border-gray-600 uppercase ">
