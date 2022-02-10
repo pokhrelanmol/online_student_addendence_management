@@ -98,7 +98,7 @@ const GetStudents = () => {
                                     {student.email}
                                 </td>
                                 <td className=" border w-64 hover:bg-red-300  border-gray-600 p-3">
-                                    {student.roll_no}
+                                    {student.rollNumber}
                                 </td>
                                 <td className=" border w-64 hover:bg-green-300  border-gray-600 p-3">
                                     {student.class}
