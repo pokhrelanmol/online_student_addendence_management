@@ -1,5 +1,5 @@
 import { rejects } from "assert";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import jwt from "jsonwebtoken";
 export interface IPayload {
     payload: {
@@ -26,10 +26,13 @@ export const sendAccessToken = async (
     data?: any
 ) => {
     return new Promise(async (resolve, reject) => {
-        const tokens: any = JSON.parse(localStorage.getItem("tokens"));
-        if (!tokens) reject();
-        let res;
+        let res: AxiosResponse<any, any>;
         try {
+            const tokens: any = JSON.parse(localStorage.getItem("tokens"));
+            if (!tokens) {
+                reject("No tokens");
+            }
+
             if (method === "get") {
                 res = await axios.get(endPoint, {
                     headers: {
@@ -55,7 +58,12 @@ export const sendAccessToken = async (
             const payload: IPayload = jwt.decode(tokens.accessToken);
             resolve({ payload, data: res });
         } catch (err) {
-            if (err.response.data.error.message === "jwt expired") {
+            if (
+                err.message ===
+                "Cannot read properties of null (reading 'accessToken')"
+            ) {
+                reject();
+            } else if (err.response.data.error.message === "jwt expired") {
                 const generateRefreshToken = async () => {
                     const tokens: any = JSON.parse(
                         localStorage.getItem("tokens")

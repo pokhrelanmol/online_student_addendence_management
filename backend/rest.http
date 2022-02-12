@@ -16,13 +16,14 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1Nm
 }
 ###
 ### use "isTeacher":true instead of student to log in the teacher
+
 POST  http://localhost:3001/api/auth/login
 Content-Type: application/json
 
 {
-      "email":"santosh@gmail.com",
+       "email":"anmol@gmail.com",
        "password":"12345678",
-       "isTeacher":true
+       "rollNumber":123
 }
 
 ###
@@ -91,19 +92,25 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQ0NDY4ODA0LCJleHAiOjE2NDQ0Nzk2MDR9.hl0hsvR5hj7OFN-elcoNEJs2S67mSd2IeJrcVG_vlGc
 
 ###
- PATCH  http://localhost:3001/api/openAttendence/?_class=2
+ PATCH  http://localhost:3001/api/openAttendence/?_class=LKG
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM4Njk4NmUzMDJkMjU4ZWQ1ZGZhYzIiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJwcmFuYSIsImlhdCI6MTY0NDQ1NjUzMywiZXhwIjoxNjQ0NDY3MzMzfQ.VgrQizOu8uwQg1FVgKHQVup3Yc2cjdMpIps-lN4i0Go 
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQ0NjMxOTUwLCJleHAiOjE2NDQ3MTgzNTB9.GVG-_BPF_kylkKuyQj5gMOlVV0Vda2v0NeYHV-LdIQk
+###
+ GET http://localhost:3001/api/ongoingAttendence/
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5YmEwMGExZjhlNGUzN2NkZmMzYWIiLCJyb2xlIjoic3R1ZGVudCIsIm5hbWUiOiJhbm1vbCIsImlhdCI6MTY0NDY3MDY2OCwiZXhwIjoxNjQ0NzU3MDY4fQ.qSjPkNUme8JMjNE_xwKjKteDH627Ef_8FcqR6qmfZ7A
+
 
 ###
  GET http://localhost:3001/api/viewAttendence?_class=LKG
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQ0NTAxMzk1LCJleHAiOjE2NDQ1MTIxOTV9.Qn3J2Wr-ms-gYdqc4a9DLkmRvrOWPE7TOqplY56Eljs 
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQ0NTU5NjQyLCJleHAiOjE2NDQ2NDYwNDJ9.2wsxfBGKgYdFuQdO1EBawkWQBdElYB-Ie4ZpOXHfezk
 ###
  PATCH  http://localhost:3001/api/closeAttendence/?_class=LKG
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQ0NDU2MzY3LCJleHAiOjE2NDQ0NjcxNjd9.Lmyp_lG4KvOiLhdZDzfhr_dgjVbHkGt2lRYM2yW7vtM 
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5Yjk1NmExZjhlNGUzN2NkZmMzYTQiLCJyb2xlIjoidGVhY2hlciIsIm5hbWUiOiJzYW50b3NoIiwiaWF0IjoxNjQ0NjMxOTUwLCJleHAiOjE2NDQ3MTgzNTB9.GVG-_BPF_kylkKuyQj5gMOlVV0Vda2v0NeYHV-LdIQk
+
 ###
  PATCH  http://localhost:3001/api/present?subject=English
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MWM5YmEwMGExZjhlNGUzN2NkZmMzYWIiLCJyb2xlIjoic3R1ZGVudCIsIm5hbWUiOiJhbm1vbCIsImlhdCI6MTY0NDQ1NzE5MSwiZXhwIjoxNjQ0NDY3OTkxfQ.E3QBmNc4IRwxDzofQ84dNFB47q7Bp8SdM7_h41a0m_c
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MjA1MjFjNDM3MTU5OGNkMjY3ODAyNTQiLCJyb2xlIjoic3R1ZGVudCIsIm5hbWUiOiJjaGlyYW4iLCJpYXQiOjE2NDQ1MDQwOTMsImV4cCI6MTY0NDUxNDg5M30.bKsrwy1ARRIgGQv8kIjM5RWu4iyH910JV2oSSMpgJ3s

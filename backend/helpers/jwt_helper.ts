@@ -1,14 +1,15 @@
-import jwt from "jsonwebtoken";
+import jwt, { VerifyCallback } from "jsonwebtoken";
 
 import createError from "http-errors";
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import client from "./init_redis";
+import { Req, User } from "../types/index";
 export const signAccessToken = (userId: string, role: string, name: string) => {
     return new Promise<string>((resolve, reject) => {
         const payload = { aud: userId, role, name };
         const secret = process.env.ACCESS_TOKEN_SECRET as string;
         const options = {
-            expiresIn: "3h",
+            expiresIn: "1d",
         };
         jwt.sign(payload, secret, options, (err, token) => {
             if (err) {
@@ -22,7 +23,7 @@ export const signAccessToken = (userId: string, role: string, name: string) => {
     });
 };
 export const verifyAccessToken = (
-    req: Request,
+    req: Req | any,
     res: Response,
     next: NextFunction
 ) => {
@@ -32,7 +33,7 @@ export const verifyAccessToken = (
     jwt.verify(
         token,
         process.env.ACCESS_TOKEN_SECRET as string,
-        (err, user: any) => {
+        (err, user) => {
             if (err) {
                 const message =
                     err.name === "JsonWebTokenError"
@@ -40,7 +41,7 @@ export const verifyAccessToken = (
                         : err.message;
                 return next(new createError.Unauthorized(message));
             }
-            (req as any).user = user;
+            (req as Req).user = user as User;
             next();
         }
     );
@@ -56,7 +57,9 @@ export const verifyAccessTokenForTeacher = (
     jwt.verify(
         token,
         process.env.ACCESS_TOKEN_SECRET as string,
-        (err, user: any) => {
+        // i dont find any solution for putting some types here
+        (err, user: User | any) => {
+            console.log(user);
             if (err) {
                 const message =
                     err.name === "JsonWebTokenError"
@@ -65,13 +68,14 @@ export const verifyAccessTokenForTeacher = (
                 return next(new createError.Unauthorized(message));
             }
             if (user.role !== "teacher") throw new createError.Unauthorized();
-            (req as any).user = user;
+
+            (req as Req).user = user;
             next();
         }
     );
 };
 export const verifyAccessTokenForStudent = (
-    req: Request,
+    req: Req | any,
     res: Response,
     next: NextFunction
 ) => {
@@ -90,7 +94,7 @@ export const verifyAccessTokenForStudent = (
                 return next(new createError.Unauthorized(message));
             }
             if (user.role !== "student") throw new createError.Unauthorized();
-            (req as any).user = user;
+            (req as Req).user = user;
             next();
         }
     );

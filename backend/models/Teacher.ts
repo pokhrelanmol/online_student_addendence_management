@@ -1,16 +1,17 @@
 import mongoose from "mongoose";
-import Class from "./Class";
-import Subject from "./Subject";
+import Class, { IClass } from "./Class";
+import Subject, { ISubject } from "./Subject";
 
-export interface TeacherType {
+export interface ITeacher {
     name: string;
     email: string;
-    classes: String[];
-    subject: String[];
+    classes: IClass[];
+    subject: { name: string; subject: string };
     password: string;
+    id?: string;
 }
 
-const TeacherSchema = new mongoose.Schema<TeacherType>({
+const TeacherSchema = new mongoose.Schema<ITeacher>({
     name: {
         type: String,
         required: true,
@@ -18,7 +19,7 @@ const TeacherSchema = new mongoose.Schema<TeacherType>({
     },
     email: { type: String, unique: true },
     classes: [{ type: mongoose.Types.ObjectId, ref: Class }],
-    subject: mongoose.Schema.Types.ObjectId,
+    subject: { type: mongoose.Schema.Types.ObjectId, ref: Subject },
     password: { type: String, minlength: 6 },
 });
 

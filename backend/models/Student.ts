@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Subject from "./Subject";
-import Teacher, { TeacherType } from "./Teacher";
-interface StudentType extends TeacherType {
+import Teacher, { ITeacher } from "./Teacher";
+export interface IStudent extends ITeacher {
     rollNumber: number;
     class: string;
     isRegistered: boolean;
@@ -10,7 +10,7 @@ interface StudentType extends TeacherType {
     isAttendenceOpen: Boolean;
 }
 
-const StudentSchema = new mongoose.Schema<StudentType>({
+const StudentSchema = new mongoose.Schema<IStudent>({
     name: {
         type: String,
         required: true,

@@ -18,6 +18,9 @@ import { verifyAccessToken } from "./helpers/jwt_helper";
 import Teacher from "./models/Teacher";
 import createError from "http-errors";
 import Student from "./models/Student";
+// types
+import { Req } from "./types/index";
+
 dotenv.config();
 const app = express();
 app.use(cors());
@@ -26,17 +29,25 @@ app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 4000;
 dotenv.config();
 
-app.get("/api", verifyAccessToken, async (req: any, res: Response) => {
-    if (req.user.role === "teacher") {
-        const teacher = await Teacher.findOne({ _id: req.user.aud as string });
-        if (!teacher) throw new createError.NotFound();
-        res.json({ user: teacher });
-    } else if (req.user.role === "student") {
-        const student = await Student.findOne({ _id: req.user.aud as string });
-        if (!student) throw new createError.NotFound();
-        res.json({ user: student });
+app.get(
+    "/api",
+    verifyAccessToken,
+    async (req: Req | any | any, res: Response) => {
+        if (req.user.role === "teacher") {
+            const teacher = await Teacher.findOne({
+                _id: req.user.aud as string,
+            });
+            if (!teacher) throw new createError.NotFound();
+            res.json({ user: teacher });
+        } else if (req.user.role === "student") {
+            const student = await Student.findOne({
+                _id: req.user.aud as string,
+            });
+            if (!student) throw new createError.NotFound();
+            res.json({ user: student });
+        }
     }
-});
+);
 
 // routes
 app.use("/api/auth", registration);

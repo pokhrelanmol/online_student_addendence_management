@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+export interface IClass {
+    name: string;
+    id?: number;
+}
 const ClassSchema = new mongoose.Schema({
     name: {
         type: String,

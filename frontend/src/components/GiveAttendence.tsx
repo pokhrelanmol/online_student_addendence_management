@@ -1,8 +1,18 @@
-import { joinClasses } from "../../helpers";
+import axios from "axios";
+import { useEffect } from "react";
+import { joinClasses, sendAccessToken } from "../../helpers";
 
 const GiveAttendence = () => {
-    // work here and make the present attendence
-
+    // TODO: check if the logged in student have some attendence going or not
+    useEffect(() => {
+        const checkOngoingAttendence = async () => {
+            const res = await sendAccessToken(
+                "http://localhost:3001/ongoingAttendence",
+                "get"
+            );
+            console.log(res);
+        };
+    }, []);
     return (
         <div className={joinClasses("space-x-4 m-5")}>
             <input type="text" disabled value="name" className="input" />

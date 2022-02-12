@@ -3,8 +3,9 @@ import createError from "http-errors";
 import { verifyAccessTokenForTeacher } from "../helpers/jwt_helper";
 import Class from "../models/Class";
 import Student from "../models/Student";
-import Teacher from "../models/Teacher";
-export const createStudent = async (req: any, res: Response) => {
+import Teacher, { ITeacher } from "../models/Teacher";
+import { Req } from "../types";
+export const createStudent = async (req: Req | any | any, res: Response) => {
     const _class = await Class.findOne({ name: req.body.class });
     if (!_class) throw new createError.NotFound("class not found");
     const doesStudentExist = await Student.findOne({
@@ -41,11 +42,11 @@ export const createStudent = async (req: any, res: Response) => {
         res.status(201).json({ student });
     }
 };
-export const getStudents = async (req: any, res: Response) => {
+export const getStudents = async (req: Req | any | any, res: Response) => {
     // req.user is comming from jwt after verification
 
     const _class = req.query._class;
-    const teacher: any = await Teacher.findOne({
+    const teacher: ITeacher = await Teacher.findOne({
         _id: req.user.aud,
     });
     if (!teacher) throw new createError.NotFound("teacher not found");
